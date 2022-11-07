@@ -53,3 +53,48 @@ void regle_du_jeu()
 {
      printf("Vous avez 30 allumettes, et a tour de role vous pouvez en enlever 1, 2 ou 3.\nLe joueur qui enlevera  la derniere allumettes aura perdu\n");
 }
+
+void Lancement(){
+
+}
+void LancementOrdiSimple(){
+
+}
+
+void menu()
+{
+
+     int choix;
+
+     printf("entrez 1 pour jouer avec un ami \nentrez 2 pour jouer avec un robot(mode: facile)\nentrez 3 pour quitter le jeu\nentrez 4 pour lire les régles du jeu\nchoix: ");
+     scanf("%d", &choix);
+
+     if (choix != 1 && choix != 2 && choix != 3)
+     {
+          printf("\n");
+          printf("il faut entrer 1 ou 2 ou 3\n");
+          printf("relancez l'execution\n");
+          printf("\n");
+          menu();
+          printf("\n");
+     }
+
+     else if (choix == 1)
+     {
+          Lancement();
+     }
+     else if (choix == 2)
+     {
+          LancementOrdiSimple();
+     }
+     else if(choix ==  3){
+          exit;
+
+     }
+     else
+     {
+          regle_du_jeu();
+          printf("\n");
+          menu();
+     }
+}
