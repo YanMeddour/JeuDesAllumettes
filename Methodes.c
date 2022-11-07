@@ -1,145 +1,51 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
+#include <ctype.h>
+#include <string.h>
 int nbAllum = 30;
-int i;
 
 
 
-void afficherAllum(){
-     for (int i = 0; i < nbAllum; i++)
+int is_valid(char *number, int min, int max)
+{
+     int size = (int)strlen(number);
+
+     for (int i = 0; i < size; ++i)
      {
-         printf("|");
-     }
-     
-}
-
-int saisirNombre(){
-     printf("ENTRER UN NOMBRE D'ALLUMETTES: ");
-     scanf("%d",&i);
-     
-     
-     if ( i<1|| i>3){ 
-     printf("RE-ENTRER UN NOMBRE D'ALLUMETTES: ");
-     scanf("%d",&i);
-     return i;
-      }
-    
-      else{
-          return i;
-           
-
-      }
-
-}
-int saisirNombreAleatoire(){
-    
-     
-   
-     printf("ENTRER UN NOMBRE D'ALLUMETTES: ");
-    int i2 = rand() % 3 + 1;
-    printf("%d\n", i2);
-     return i2;
-
-      
-    
-
-
-}
-
-
-
-int enleverAllumettes(int allumettes){
-    
-          nbAllum-=allumettes;
-     printf("il y a %d allumettes\n", nbAllum);
-     
-}
-
-int TourDeRole(int joueur){
-    
-     if(joueur == 1){
-          joueur = 2;
-     }
-     else {
-          joueur =1;
-          
-     }
-     
-
-
-     return joueur;
-
-}
-int getNbAllum(){
-     return nbAllum;
-}
-
-bool finDeJeu(int nbrestantAllum){
-     bool continuerAjouer = true;
-     if(nbrestantAllum <=1) return !continuerAjouer;
-     else  {
-        
-          return continuerAjouer;
-     }
-}
-
-
-int modOrdiFacile(){
-     
-}
-
-int LancementOrdiSimple(){
-     int tour = 2;
-     while(finDeJeu(getNbAllum())){
-     tour= TourDeRole(tour);
-
-
-     afficherAllum();
-     printf("\n");
-
-     printf("joueur %d, a vous de jouer\n",tour );
-     
-     if(tour==1){
-     enleverAllumettes(saisirNombre());
-     }
-     else{
-          enleverAllumettes(saisirNombreAleatoire());
+          if (isdigit(*(number + i)) == 0)
+               return -1;
      }
 
-     
-     if(nbAllum == 0 || nbAllum == 1){
-          printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n" , tour);
-          return 0;
-     }
-     }
+     int numberInt = (int)atoi(number);
+
+     if (numberInt < min || numberInt > max)
+          return -1;
+
+     return numberInt;
 }
 
-int Lancement(){
-     int tour = 2;
-     while(finDeJeu(getNbAllum())){
-     tour= TourDeRole(tour);
+int saisirNombre()
+{
+     char i[100];
 
+     do
+     {
+          printf("ENTREZ UN NOMBRE D'ALLUMETTES: ");
 
-     afficherAllum();
-     printf("\n");
+          scanf("%s", i);
 
-     printf("joueur %d, a vous de jouer\n",tour );
-     
-     enleverAllumettes(saisirNombre());
-     
+     } while (is_valid(i, 1, 3) == -1);
+     // while (i < 1 || i > 3)
+     // {
+     //      printf("RE-ENTRER UN NOMBRE D'ALLUMETTES: ");
+     //      scanf("%d", &i);
 
-     }
-     if(nbAllum == 0 || nbAllum == 1){
-          printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n" , tour);
-          return 0;
-     }
-}
-
-
-
-int main(){
-
-    LancementOrdiSimple();
+     // }
+     // while (i > nbAllum)
+     // {
+     //      printf("RE-ENTRER UN NOMBRE D'ALLUMETTES inférieur au nombre restant: ");
+     //      scanf("%d", &i);
+     // }
+     return is_valid(i, 1, 3);
 }
