@@ -49,3 +49,7 @@ int saisirNombre()
      // }
      return is_valid(i, 1, 3);
 }
+void regle_du_jeu()
+{
+     printf("Vous avez 30 allumettes, et a tour de role vous pouvez en enlever 1, 2 ou 3.\nLe joueur qui enlevera  la derniere allumettes aura perdu\n");
+}
