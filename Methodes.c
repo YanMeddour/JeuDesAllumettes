@@ -146,3 +146,11 @@ bool finDeJeu(int nbrestantAllum)
           return continuerAjouer;
      }
 }
+
+int enleverAllumettes(int allumettes)
+{
+
+     nbAllum -= allumettes;
+     printf("il y a %d allumettes\n", nbAllum);
+     return allumettes;
+}
