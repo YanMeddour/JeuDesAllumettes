@@ -133,3 +133,16 @@ void menu()
           menu();
      }
 }
+
+bool finDeJeu(int nbrestantAllum)
+{
+
+     bool continuerAjouer = true;
+     if (nbrestantAllum <= 1)
+          return !continuerAjouer;
+     else
+     {
+
+          return continuerAjouer;
+     }
+}
