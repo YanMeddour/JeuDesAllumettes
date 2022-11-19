@@ -64,9 +64,37 @@ void regle_du_jeu()
 void Lancement(){
 
 }
-void LancementOrdiSimple(){
+void LancementOrdiSimple()
+{
 
+int tour = 2;
+     while (finDeJeu(getNbAllum()))
+     {
+tour = TourDeRole(tour);
+
+          afficherAllum();
+          printf("\n");
+
+          printf("JOUEUR %d, a vous de jouer\n", tour);
+
+          if (tour == 1)
+          {
+               enleverAllumettes(saisirNombre());
+          }
+          else
+          {
+               enleverAllumettes(saisirNombreAleatoire());
+          }
+
+          if (nbAllum == 0 || nbAllum == 1)
+          {
+               printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", TourDeRole(tour));
+          }
+        
+     }
+   exit;
 }
+
 
 void menu()
 {
