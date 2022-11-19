@@ -5,7 +5,14 @@
 #include <string.h>
 int nbAllum = 30;
 
-
+void afficherAllum()
+{
+     for (int i = 0; i < nbAllum; i++)
+     {
+          printf("|");
+     }
+     printf("\n");
+}
 
 int is_valid(char *number, int min, int max)
 {
