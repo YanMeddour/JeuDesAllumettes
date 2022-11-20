@@ -53,6 +53,58 @@ void regle_du_jeu()
 void Lancement(){
 
 }
+
+void LancementOrdiHard()
+{
+    int test;
+    int tour = rand() % 2 + 1;
+    while (finDeJeu(getNbAllum()))
+    {
+        tour = TourDeRole(tour);
+
+        afficherAllum();
+        printf("\n");
+
+        printf("JOUEUR %d, a vous de jouer\n", tour);
+
+        if (tour == 1)
+        {
+            test = enleverAllumettes(saisirNombre());
+        }
+        else
+        {
+
+            if (getNbAllum() == 28)
+            {
+                enleverAllumettesOrdi(3);
+            }
+            else if (getNbAllum() == 27)
+            {
+                enleverAllumettesOrdi(2);
+            }
+            else if (getNbAllum() + test == 1 || getNbAllum() + test == 5 || getNbAllum() + test == 9 || getNbAllum() + test == 13 || getNbAllum() + test == 17 || getNbAllum() + test == 21 || getNbAllum() + test == 25 || getNbAllum() + test == 29)
+            {
+                enleverAllumettesOrdi(4 - test);
+            }
+            else
+            {
+
+                enleverAllumettesOrdi(saisirNombreAleatoire());
+            }
+        }
+
+        if (nbAllum == 0)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", TourDeRole(tour));
+        }
+        else if (nbAllum == 1)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", tour);
+        }
+    }
+    exit;
+}
+
 void LancementOrdiSimple()
 {
 
