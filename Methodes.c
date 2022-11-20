@@ -215,3 +215,72 @@ int TourDeRole(int joueur)
     return joueur;
 }
 
+void menu()
+    {
+
+        int choix;
+
+        do
+        {
+
+            printf("entrez 1 pour jouer avec un ami \nentrez 2 pour jouer avec un robot(mode: facile)\nentrez 3 pour jouer avec un robot(mode: difficile)\nentrez 4 pour lire les régles du jeu\nentrez 5 pour quitter le jeu\nchoix: ");
+            scanf("%d", &choix);
+
+            if (choix != 1 && choix != 2 && choix != 3 && choix != 4 && choix != 5)
+            {
+                printf("\n");
+                printf("Veuillez choisir entre: 1, 2, 3, 4, ou 5\n");
+                printf("relancez l'execution\n");
+                printf("\n");
+                menu();
+                printf("\n");
+            }
+
+            else if (choix == 1)
+            {
+
+                Lancement();
+                printf("\n");
+            }
+            else if (choix == 2)
+            {
+                LancementOrdiSimple();
+                printf("\n");
+            }
+            else if (choix == 3)
+            {
+                LancementOrdiHard();
+                printf("\n");
+            }
+            else if (choix == 4)
+            {
+                printf("\n");
+                regle_du_jeu();
+                printf("\n");
+            }
+            else if (choix == 5)
+            {
+                exit;
+            }
+            rechargerAllumettes();
+        } while (choix != 5);
+    }
+
+    int recommencerPartie()
+    {
+        int choixFinDePartie;
+        printf("voulez vous rejouer, si oui tapez 1 sinon 2\n");
+        scanf("%d", &choixFinDePartie);
+        printf("%d\n", choixFinDePartie);
+        if (choixFinDePartie != 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+
+
