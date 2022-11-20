@@ -108,32 +108,36 @@ void LancementOrdiHard()
 void LancementOrdiSimple()
 {
 
-int tour = 2;
-     while (finDeJeu(getNbAllum()))
-     {
-tour = TourDeRole(tour);
+    int tour = rand() % 2 + 1;
+    
+    while (finDeJeu(getNbAllum()))
+    {
+        tour = TourDeRole(tour);
 
-          afficherAllum();
-          printf("\n");
+        afficherAllum();
+        printf("\n");
 
-          printf("JOUEUR %d, a vous de jouer\n", tour);
+        printf("JOUEUR %d, a vous de jouer\n", tour);
 
-          if (tour == 1)
-          {
-               enleverAllumettes(saisirNombre());
-          }
-          else
-          {
-               enleverAllumettes(saisirNombreAleatoire());
-          }
+        if (tour == 1)
+        {
+            enleverAllumettes(saisirNombre());
+        }
+        else
+        {
+            enleverAllumettesOrdi(saisirNombreAleatoire());
+        }
 
-          if (nbAllum == 0 || nbAllum == 1)
-          {
-               printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", TourDeRole(tour));
-          }
-        
-     }
-   exit;
+        if (nbAllum == 1)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", tour);
+        }
+        else if (nbAllum == -1 || nbAllum == 0)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", TourDeRole(tour));
+        }
+        exit;
+    }
 }
 
 
