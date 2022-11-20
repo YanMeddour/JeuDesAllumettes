@@ -43,17 +43,6 @@ int saisirNombre()
           scanf("%s", i);
 
      } while (is_valid(i, 1, 3) == -1);
-     // while (i < 1 || i > 3)
-     // {
-     //      printf("RE-ENTRER UN NOMBRE D'ALLUMETTES: ");
-     //      scanf("%d", &i);
-
-     // }
-     // while (i > nbAllum)
-     // {
-     //      printf("RE-ENTRER UN NOMBRE D'ALLUMETTES inférieur au nombre restant: ");
-     //      scanf("%d", &i);
-     // }
      return is_valid(i, 1, 3);
 }
 void regle_du_jeu()
@@ -154,3 +143,19 @@ int enleverAllumettes(int allumettes)
      printf("il y a %d allumettes\n", nbAllum);
      return allumettes;
 }
+
+int TourDeRole(int joueur)
+{
+
+    if (joueur == 1)
+    {
+        joueur = 2;
+    }
+    else
+    {
+        joueur = 1;
+    }
+
+    return joueur;
+}
+
