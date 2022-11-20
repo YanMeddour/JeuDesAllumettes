@@ -3,55 +3,106 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-int nbAllum = 30;
 
+int nbAllum = 30;
+int recommencerPartie();
 void afficherAllum()
 {
-     for (int i = 0; i < nbAllum; i++)
-     {
-          printf("|");
-     }
-     printf("\n");
+    for (int i = 0; i < nbAllum; i++)
+    {
+        printf("|");
+    }
+    printf("\n");
 }
 
 int is_valid(char *number, int min, int max)
 {
-     int size = (int)strlen(number);
+    int size = (int)strlen(number);
 
-     for (int i = 0; i < size; ++i)
-     {
-          if (isdigit(*(number + i)) == 0)
-               return -1;
-     }
+    for (int i = 0; i < size; ++i)
+    {
+        if (isdigit(*(number + i)) == 0)
+            return -1;
+    }
 
-     int numberInt = (int)atoi(number);
+    int numberInt = (int)atoi(number);
 
-     if (numberInt < min || numberInt > max)
-          return -1;
+    if (numberInt < min || numberInt > max)
+        return -1;
 
-     return numberInt;
+    return numberInt;
 }
 
 int saisirNombre()
 {
-     char i[100];
+    char i[100];
 
-     do
-     {
-          printf("ENTREZ UN NOMBRE D'ALLUMETTES: ");
+    do
+    {
+        printf("ENTREZ UN NOMBRE D'ALLUMETTES: ");
+        scanf("%s", i);
+    } while (is_valid(i, 1, 3) == -1);
 
-          scanf("%s", i);
-
-     } while (is_valid(i, 1, 3) == -1);
-     return is_valid(i, 1, 3);
+    return is_valid(i, 1, 3);
 }
-void regle_du_jeu()
+
+int saisirNombreAleatoire()
 {
-     printf("Vous avez 30 allumettes, et a tour de role vous pouvez en enlever 1, 2 ou 3.\nLe joueur qui enlevera  la derniere allumettes aura perdu\n");
+    int i2 = rand() % 3 + 1;
+    return i2;
 }
 
-void Lancement(){
+int enleverAllumettes(int allumettes)
+{
+    nbAllum -= allumettes;
+    if (nbAllum == -1)
+    {
+        nbAllum = 0;
+    }
+    printf("Il reste %d allumettes\n", nbAllum);
 
+    return allumettes;
+}
+
+int enleverAllumettesOrdi(int allumettes)
+{
+
+    nbAllum -= allumettes;
+    printf("Le robot a enlevé %d allumettes\n", allumettes);
+    printf("Il reste %d allumettes\n", nbAllum);
+    return allumettes;
+}
+
+int TourDeRole(int joueur)
+{
+
+    if (joueur == 1)
+    {
+        joueur = 2;
+    }
+    else
+    {
+        joueur = 1;
+    }
+
+    return joueur;
+}
+int getNbAllum()
+{
+    return nbAllum;
+}
+
+bool finDeJeu(int nbrestantAllum)
+{
+
+    bool continuerAjouer = true;
+    if (nbrestantAllum <= 1)
+        return !continuerAjouer;
+    else
+    {
+
+        return continuerAjouer;
+    }
 }
 
 void LancementOrdiHard()
@@ -140,82 +191,46 @@ void LancementOrdiSimple()
     }
 }
 
-
-void menu()
-{
-
-     int choix;
-
-     printf("entrez 1 pour jouer avec un ami \nentrez 2 pour jouer avec un robot(mode: facile)\nentrez 3 pour quitter le jeu\nentrez 4 pour lire les régles du jeu\nchoix: ");
-     scanf("%d", &choix);
-
-     if (choix != 1 && choix != 2 && choix != 3)
-     {
-          printf("\n");
-          printf("il faut entrer 1 ou 2 ou 3\n");
-          printf("relancez l'execution\n");
-          printf("\n");
-          menu();
-          printf("\n");
-     }
-
-     else if (choix == 1)
-     {
-          Lancement();
-     }
-     else if (choix == 2)
-     {
-          LancementOrdiSimple();
-     }
-     else if(choix ==  3){
-          exit;
-
-     }
-     else
-     {
-          regle_du_jeu();
-          printf("\n");
-          menu();
-     }
-}
-
-bool finDeJeu(int nbrestantAllum)
-{
-
-     bool continuerAjouer = true;
-     if (nbrestantAllum <= 1)
-          return !continuerAjouer;
-     else
-     {
-
-          return continuerAjouer;
-     }
-}
-
-int enleverAllumettes(int allumettes)
-{
-
-     nbAllum -= allumettes;
-     printf("il y a %d allumettes\n", nbAllum);
-     return allumettes;
-}
-
-int TourDeRole(int joueur)
-{
-
-    if (joueur == 1)
+    void regle_du_jeu()
     {
-        joueur = 2;
-    }
-    else
-    {
-        joueur = 1;
+        printf("Vous avez 30 allumettes, et a tour de role vous pouvez en enlever 1, 2 ou 3.\nLe joueur qui enlevera la derniere allumettes aura perdu\n");
     }
 
-    return joueur;
-}
+    void Lancement()
+    {
 
-void menu()
+        int tour = 2;
+        while (finDeJeu(getNbAllum()))
+        {
+            tour = TourDeRole(tour);
+
+            afficherAllum();
+            printf("\n");
+
+            printf("joueur %d, a vous de jouer\n", tour);
+
+            enleverAllumettes(saisirNombre());
+        }
+        if (nbAllum == 1)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", tour);
+        }
+        else if (nbAllum == -1 || nbAllum == 0)
+        {
+            printf("LE JEU EST TERMINEEEEE, le joueur %d à gagné \n", TourDeRole(tour));
+        }
+        exit;
+    }
+
+    int rechargerAllumettes()
+    {
+        if (nbAllum <= 1)
+        {
+            nbAllum = 30;
+        }
+    }
+
+    void menu()
     {
 
         int choix;
@@ -282,5 +297,11 @@ void menu()
         }
     }
 
+    int main()
+    {
 
-
+        printf("Bienvenue sur le Jeu Des Allumettes\n");
+        printf("\n");
+        menu();
+        printf("\n");
+    }
