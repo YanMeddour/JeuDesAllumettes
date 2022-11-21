@@ -297,11 +297,22 @@ void LancementOrdiSimple()
         }
     }
 
+ void affichermenu(){
+        printf("***********************************************\n\n");
+        printf("     Bienvenue sur le jeu des Allumettes\n");
+        printf("\n***********************************************");
+
+
+
+    }
+
     int main()
     {
 
-        printf("Bienvenue sur le Jeu Des Allumettes\n");
+        affichermenu();
         printf("\n");
         menu();
         printf("\n");
     }
+
+   
